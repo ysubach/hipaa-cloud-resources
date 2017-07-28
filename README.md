@@ -4,9 +4,11 @@ Just a general structure for now.
 
 ## Business
 
-## Rules/Laws
+## Regulations
 
 ## Technology
+
+- [Overview](docs/tech/Overview.md)
 
 ### Infrastructure as a Service (IaaS)
 
