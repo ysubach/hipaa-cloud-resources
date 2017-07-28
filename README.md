@@ -18,8 +18,9 @@ owners, managers) and technical specialists.
 _This is work in progress!_ It's our first attempt to create a detailed guide on 
 the subject. That's why it is far from being ideal. This guide is __open to 
 contributions__ like pull requests with your corrections or updates, questions 
-and ideas as issues in this repo. Or if you feel like it, just send email to 
-<info@dekses.com>
+and ideas as issues in this 
+[repository](https://github.com/dekses/hipaa-cloud-resources). Or if you feel 
+like it, just send email to <info@dekses.com>
 
 ## Business
 
