@@ -5,5 +5,8 @@
 
 ## Google Cloud Platform
 
+_Coming soon..._
 
 ## Microsoft Azure
+
+_Coming soon..._
