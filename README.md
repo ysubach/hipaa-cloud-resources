@@ -33,9 +33,9 @@ _Coming soon..._
 ## Technology
 
 - Infrastructure as a Service (IaaS)
-  - [Amazon Web Services](doc/IaaS.md#amazon-web-services)
-  - [Google Cloud Platform](doc/IaaS.md#google-cloud-platform)
-  - [Microsoft Azure](doc/IaaS.md#microsoft-azure)
+  - [Amazon Web Services](docs/IaaS.md#amazon-web-services)
+  - [Google Cloud Platform](docs/IaaS.md#google-cloud-platform)
+  - [Microsoft Azure](docs/IaaS.md#microsoft-azure)
 
 - Platform as a Service (PaaS)
   - [Datica](docs/PaaS.md#datica)
