@@ -24,29 +24,27 @@ like it, just send email to <info@dekses.com>
 
 ## Business
 
+_Coming soon..._
+
 ## Regulations
+
+_Coming soon..._
 
 ## Technology
 
-- [Overview](docs/tech/Overview.md)
+- Infrastructure as a Service (IaaS)
+  - [Amazon Web Services](doc/IaaS.md#amazon-web-services)
+  - [Google Cloud Platform](doc/IaaS.md#google-cloud-platform)
+  - [Microsoft Azure](doc/IaaS.md#microsoft-azure)
 
-### Infrastructure as a Service (IaaS)
+- Platform as a Service (PaaS)
+  - [Datica](docs/PaaS.md#datica)
+  - [Aptible](docs/PaaS.md#aptible)
 
-#### Amazon Web Services
-
-#### Google Cloud Platform
-
-#### Microsoft Azure
-
-### Platform as a Service (PaaS)
-- Overview
-- Datica
-- Aptible
-
-### Software as a Service
-- Google G Suite
-- MS Office 365
-- Dropbox
-- Box
-- TrueVault
+- Software as a Service (SaaS)
+  - [Google G Suite](docs/SaaS.md)
+  - [MS Office 365](docs/SaaS.md)
+  - [Dropbox](docs/SaaS.md)
+  - [Box](docs/SaaS.md)
+  - [TrueVault](docs/SaaS.md)
 
