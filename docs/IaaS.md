@@ -2,11 +2,12 @@
 
 ## Amazon Web Services
 
+<a name="aws-overview" />
 ### Overview
 
 ## Google Cloud Platform
 
-### Overview
+### Overview {#gcp-overview}
 
 _Coming soon..._
 
