@@ -18,34 +18,33 @@ owners, managers) and technical specialists.
 _This is work in progress!_ It's our first attempt to create a detailed guide on 
 the subject. That's why it is far from being ideal. This guide is __open to 
 contributions__ like pull requests with your corrections or updates, questions 
-and ideas as issues in this repo. Or if you feel like it, just send email to 
-<info@dekses.com>
+and ideas as issues in this 
+[repository](https://github.com/dekses/hipaa-cloud-resources). Or if you feel 
+like it, just send email to <info@dekses.com>
 
 ## Business
 
+_Coming soon..._
+
 ## Regulations
+
+_Coming soon..._
 
 ## Technology
 
-- [Overview](docs/tech/Overview.md)
+- Infrastructure as a Service (IaaS)
+  - [Amazon Web Services](docs/IaaS.md#amazon-web-services)
+  - [Google Cloud Platform](docs/IaaS.md#google-cloud-platform)
+  - [Microsoft Azure](docs/IaaS.md#microsoft-azure)
 
-### Infrastructure as a Service (IaaS)
+- Platform as a Service (PaaS)
+  - [Datica](docs/PaaS.md#datica)
+  - [Aptible](docs/PaaS.md#aptible)
 
-#### Amazon Web Services
-
-#### Google Cloud Platform
-
-#### Microsoft Azure
-
-### Platform as a Service (PaaS)
-- Overview
-- Datica
-- Aptible
-
-### Software as a Service
-- Google G Suite
-- MS Office 365
-- Dropbox
-- Box
-- TrueVault
+- Software as a Service (SaaS)
+  - [Google G Suite](docs/SaaS.md)
+  - [MS Office 365](docs/SaaS.md)
+  - [Dropbox](docs/SaaS.md)
+  - [Box](docs/SaaS.md)
+  - [TrueVault](docs/SaaS.md)
 
