@@ -2,6 +2,10 @@
 
 ## Amazon Web Services
 
+Subsections:
+- [AWS Overview](#aws-overview)
+- [AWS Shared Responsibility Model](#aws-shared-responsibility-model)
+
 ### AWS Overview
 
 __Amazon Web Services (AWS)__ is a secure cloud service provider. It offers vast 
@@ -94,9 +98,35 @@ Following diagram demostrates this partitioning of responsibility.
 
 ![AWS Shared Responsibility Model](../img/aws-shared-responsibility-model.png)
 
-//AWS as a cloud service provider manages security of:
+AWS as a cloud service provider manages _physical security_ of the following 
+components.
 
-//You as a customer manage security of:
+- Regions and availability zones
+- Edge locations
+- Compute resources
+- Storage resources
+- Databases
+- Networks
+
+You as a _customer manage security_ of the following areas.
+
+- Network traffic protection
+- Server-side encryption (for storage and databases)
+- Data transmission integrity and encryption 
+- Data availability
+- Disaster recovery
+- Access management
+
+All these areas are typically covered by the cloud service provider (AWS) 
+offerings but require proper _cloud architecture and configuration_ to be 
+implemented by the customer.
+
+Additionally you are responsible for security of components deployed on top of 
+your AWS cloud infrastructure.
+
+- Operating systems
+- Platforms
+- Applications
 
 Understanding of the _shared responsibility model_ is an important step towards 
 running your HIPAA application in AWS cloud. You can clearly see the boundaries 
