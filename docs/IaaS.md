@@ -73,6 +73,36 @@ As a summary, here is a list of __steps to HIPAA compliant AWS infrastructure__:
 
 ### AWS Shared Responsibility Model
 
+AWS implements _shared responsibility model_ where AWS manages security "of the 
+cloud" and leaves security "in the cloud" to be managed by the customer. It 
+means there are two categories of security measures applied.
+
+- __Security of the cloud:__ security measures that the cloud service provider 
+  (AWS) implements and operates
+
+- __Security in the cloud:__ security measures that the customer implements and 
+  operates, related to the security of customer content and applications that 
+  make use of AWS services
+
+Basically AWS provides infrastrucuture for your applications that _can be used 
+in HIPAA compliant way_. But it's your (AWS customer) responsibility to 
+_configure cloud infrastructure_ to ensure confidentiality, integrity and 
+availability of ePHI. You are also responsible for security of the 
+application(s) deployed on top of this HIPAA compliant cloud infrastructure.
+
+Following diagram demostrates this partitioning of responsibility.
+
+![AWS Shared Responsibility Model](../img/aws-shared-responsibility-model.png)
+
+//AWS as a cloud service provider manages security of:
+
+//You as a customer manage security of:
+
+Understanding of the _shared responsibility model_ is an important step towards 
+running your HIPAA application in AWS cloud. You can clearly see the boundaries 
+of AWS offering in terms of security and plan your cloud architecture 
+accordingly.
+
 ### AWS BAA
 
 ### AWS Security In Transit
