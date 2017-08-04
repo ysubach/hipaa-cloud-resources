@@ -5,6 +5,7 @@
 Subsections:
 - [AWS Overview](#aws-overview)
 - [AWS Shared Responsibility Model](#aws-shared-responsibility-model)
+- [AWS BAA](#aws-baa)
 
 ### AWS Overview
 
@@ -134,6 +135,51 @@ of AWS offering in terms of security and plan your cloud architecture
 accordingly.
 
 ### AWS BAA
+
+AWS requires _Business Associate Addendum (BAA)_ to be signed before you can 
+start usage of AWS for your HIPAA compliant workloads.
+
+AWS offers [AWS Artifact service](https://aws.amazon.com/artifact/) as 
+self-service portal for on-demand access to security compliance reports and 
+agreement (only BAA and NDA for now).
+
+__Step 1:__ Accept AWS Artifact NDA.
+
+- Sign in and open _AWS Artifact_ console
+- Open _Agreements_ section
+- Open _AWS Artifact Nondisclosure Agreement_ subsection
+- Click on _Download and review AWS Artifact NDA_ link and read NDA
+- Check "I have downloaded, read and agree ..." box
+- Click on "Accept ..." button
+
+Final state before clicking the button is shown on the picture below.
+
+![AWS Artifact NDA](../img/aws-baa-artifact-1.png)
+
+__Step 2:__ Accept AWS BAA.
+
+- Open _AWS Business Associate Addendum_ subsection
+- Click on _Download and review AWS BAA_ link and review BAA
+- Check all 3 boxes
+- Click on "Accept ..." button
+
+Final state before clicking the button is shown on the picture below.
+
+![AWS Artifact BAA](../img/aws-baa-artifact-2.png)
+
+Now you can __start usage of your AWS account for HIPAA compliant workloads__. 
+AWS requires that when you include PHI in this account, YOU MUST:
+
+1. Use only HIPAA Eligible Services in connection with PHI, and
+1. Encrypt all PHI in-transit and at-rest.
+
+This does not restrict usage of this AWS account for data and application not 
+covered by HIPAA requirements. However this usually requires specific cloud 
+architecture where PHI is strictly separated from non-PHI resources.
+
+AWS BAA can be _terminated at any time_ using AWS Artifact service. This means 
+you have to delete all PHI under this account prior to termination, and stop 
+further usage of this account in connection with any PHI.
 
 ### AWS Security In Transit
 
