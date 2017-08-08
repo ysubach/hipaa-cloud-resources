@@ -6,6 +6,7 @@ Subsections:
 - [AWS Overview](#aws-overview)
 - [AWS Shared Responsibility Model](#aws-shared-responsibility-model)
 - [AWS BAA](#aws-baa)
+- [AWS Security At Rest](#aws-security-at-rest)
 
 ### AWS Overview
 
@@ -181,17 +182,94 @@ AWS BAA can be _terminated at any time_ using AWS Artifact service. This means
 you have to delete all PHI under this account prior to termination, and stop 
 further usage of this account in connection with any PHI.
 
-### AWS Security In Transit
-
 ### AWS Security At Rest
 
-### AWS Network security
+AWS requires customers to _encrypt PHI stored using HIPAA eligible services_. 
+Encryption guarantees that data will be unusable to unauthorized individuals in 
+case of storage breach (like physical access to a disk with PHI).  Assuming 
+decryption key was not breached.
+
+Data encryption in the storage ("at-rest") can be implemented using the 
+following appoaches (or combination in some cases).
+
+- __SSE (server-side encryption)__: mechanism provided by AWS services, uses 
+  AES-256 GCM algorithm. The easiest way to utilize storage encryption on AWS 
+  platform.
+- __Application level encryption__: implemented using application framework or 
+  by intergating third-party solutions. Gives more flexibility in terms of 
+  authorization model and encryption algorithms.
+
+[AWS Key Management Service (AWS KMS)](https://aws.amazon.com/kms/) is a managed 
+service that makes it easy to manage and control encryption keys used to encrypt 
+your PHI. It's integrated with other AWS services that provide SSE capabilities. 
+Also you can use it as a centralized key store for all your applications.
+
+_AWS KMS does not need to be HIPAA eligible service_ if it's used to manage keys 
+for applications running on top of other HIPAA eligible services. Essentially 
+PHI never reaches AWS KMS service itself because it stores only encryption keys.
+However AWS KMS has strong security and quality controls, built-in highly 
+availability, durability and scalability. Therefore _AWS KMS is highly 
+recommended_ for deployments having HIPAA security compliance requirements.
+
+__SSE (server-side encryption) using AWS KMS__ outlined on the following 
+diagram:
+
+![AWS At Rest SSE Encryption](../img/aws-rest-sse.png)
+
+Yellow color means that data stored there will be encrypted. _AWS KMS_ is used 
+for encryption keys generation and distribution to services. Currently SSE 
+(server-side encryption) available for:
+
+- Amazon Elastic Block Store (Amazon EBS)
+- Amazon Simple Storage Service (Amazon S3)
+- Amazon Glacier
+- Amazon Simple Queue Service (SQS)
+- Amazon Relational Database Service (Amazon RDS) [MySQL, Oracle, PostgreSQL]
+- Amazon Aurora
+- Amazon DynamoDB
+- Amazon Redshift
+- Amazon Elastic MapReduce (Amazon EMR)
+- AWS Snowball
+- AWS Directory Services
+- Amazon WorkDocs
+- Amazon WorkSpaces
+
+__Application level encryption using AWS KMS__ outlined on the following 
+diagram:
+
+![AWS At Rest Application Encryption](../img/aws-rest-application.png)
+
+Again yellow color shows where data will be encrypted. In this scenario 
+application uses _AWS KMS_ to get encryption key and performs encryption. Then 
+encrypted data is sent to _EBS volume_ for storage. Here standard encryption 
+available for EBS (and other services) may not be used because data is already 
+unreadable upon leaving the application.
+
+Application level encryption requires more effort if compared to standard SSE 
+implementation. But it has more flexibility, for example you may want to have 
+encryption performed for each user of your application using separate keys. If 
+this level of granularity is not required, then standard SSE provided by AWS 
+will be enough.
+
+### AWS Security In Transit
+
+_Coming soon..._
+
+### AWS Network Security
+
+_Coming soon..._
 
 ### AWS Availability
 
-### AWS Disaster Recovery
+_Coming soon..._
+
+### AWS Backups and Disaster Recovery
+
+_Coming soon..._
 
 ### AWS Access Management
+
+_Coming soon..._
 
 
 
