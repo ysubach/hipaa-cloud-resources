@@ -7,6 +7,7 @@ Subsections:
 - [AWS Shared Responsibility Model](#aws-shared-responsibility-model)
 - [AWS BAA](#aws-baa)
 - [AWS Security At Rest](#aws-security-at-rest)
+- [AWS Security In Transit](#aws-security-in-transit)
 
 ### AWS Overview
 
@@ -253,7 +254,100 @@ will be enough.
 
 ### AWS Security In Transit
 
-_Coming soon..._
+All PHI transferred through _network connections_ ("in-transit") _must be 
+encrypted_. This applies to all types of connections to/from processing or 
+storage resources involved into dealing with PHI. Encryption methods, 
+configurtions and procedures are different for various connection types and 
+architectures.
+
+Typical AWS deployment has two types of data transfer paths (or connections): 
+external and internal.
+
+- __External data transfer__: from the customer (real user or other software if 
+  your application has an API) to AWS infrastructure. In this case PHI is 
+  transferred through multiple networks from the customer location to AWS data 
+  center. These networks are controlled by third-party providers that's why 
+  unencrypted transfer of PHI is highly unsafe.
+
+- __Internal data transfer__: happens between AWS services. This is happening 
+  inside the network controlled by AWS. Depending on your infrastructure PHI can 
+  be transferred within availability zone, between availability zones or between 
+  data centers. Even though PHI is not leaving networks controlled by AWS these 
+  networks are shared between multiple AWS's customers and can not be considered 
+  highly secure.
+
+Described AWS infrastructure (in a bit simplified form) is outlined on the 
+following diagram.  Red arrow shows _external data transfer_, yellow arrows show 
+_internal data transfer_.
+
+![AWS In Transit Encryption](../img/aws-transit.png)
+
+__Consumer to ELB__ is an  _external data transfer_ path in this schema.
+[Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/) or ELB is 
+the only Internet-facing component in this architecture. To protect the 
+confidential PHI data your ELB must be configured to allow _only TLS encrypted 
+communication_.
+
+This requires a SSL/TLS certificate to be deployed at the ELB, this certificate 
+must be signed by CA (certificate authority). You can use [AWS Certificate 
+Manager](https://aws.amazon.com/certificate-manager/) which is free and 
+integrated with various AWS services (including ELB), or you can use any other 
+CA and then just upload a certificate.
+
+ELB load balancer can be configured to use TCP pass-through mode, in this case 
+your application servers should have a certificate and will be responsible for 
+traffic encryption and decryption. See more about that in [ELB 
+documentation](https://aws.amazon.com/documentation/elastic-load-balancing/).
+
+Further explanation is for _internal data transfer_ paths.
+
+__ELB to EC2.__ ELB forwards traffic to one or more EC2 instances which run your 
+application and responsible for actual handling of your consumers' requests.  
+Since external traffic is decrypted at ELB using CA signed certificate it must 
+be _encrypted again_ before transmission to the EC2 instance(s).
+
+This can be achieved using the following measures.
+
+- Configure EC2 instance to accept connection through _TLS encrypted connection 
+  only_ (for HTTPS use port 443).
+- Generate and install _self-signed TLS/SSL certificate_ to the EC2 instance.  
+  Details of this step heavily depend on used OS and software chosen to handle 
+  requests on EC2 side.
+- Point ELB to these _secured EC2 endpoints_.
+
+__EC2 to EC2__. Your application servers may have a need to interact with other 
+EC2 instances. For example, this is necessary if you use microservices design 
+pattern to build your system. Another example (which does not fit into this 
+simplified architecture but still often used) is a database cluster deployed 
+over AWS EC2 nodes. Databases like Cassandra or MongoDB are not available as 
+managed AWS services, so you'll have to use EC2 if you want to use them.
+
+In either case interaction between EC2 instances must be allowed through _TLS 
+encrypted connections only_. If that's part of your application, then you need 
+to use available frameworks to add encryption functionality. If you need it for 
+other application (like database cluster), then this software need to be 
+configured to use TLS connections.
+
+This usually requires a _self-signed TLS/SSL certificates_. Details of 
+configuration and ceritificate(s) deployment depend on the application or 
+framework used for handling these connections.
+
+__EC2 to AWS services (RDS, S3, SQS, etc).__ Most likely your application 
+utilizes one or more AWS services. We are not covering details of each service 
+here but typically application's needs fall into one of the following 
+categories:
+- database,
+- file storage,
+- message queue.
+
+For all these services you must ensure that _only encrypted connection_ is used 
+to transfer PHI to/from AWS service. This can be achieved by usage of:
+- HTTPS endpoints if there is an API, or
+- TLS based encrypted network connection.
+
+These recommendations cover the typical AWS infrastructure, it can be different 
+for your application but basic principles of handling PHI in-trasit remain the 
+same.
 
 ### AWS Network Security
 
