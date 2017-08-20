@@ -8,6 +8,7 @@ Subsections:
 - [AWS BAA](#aws-baa)
 - [AWS Security At Rest](#aws-security-at-rest)
 - [AWS Security In Transit](#aws-security-in-transit)
+- [AWS Network Security](#aws-network-security)
 
 ### AWS Overview
 
@@ -351,7 +352,85 @@ same.
 
 ### AWS Network Security
 
-_Coming soon..._
+[AWS Virtual Private Cloud (VPC)](https://aws.amazon.com/vpc/) is the networking 
+layer for AWS cloud infrastructure. It enables you to deploy AWS resources into 
+a virtual network that you've defined. This virtual network closely resembles 
+traditional network that you'd operate in a data center. However AWS network
+uses [Software Defined Network 
+(SDN)](https://en.wikipedia.org/wiki/Software-defined_networking) technology.  
+This approach allows you to initialize and manage scalable AWS network 
+infrastructure dynamically via API or using other software interfaces and tools.
+
+VPCs are created using following main building blocks (this is not a complete 
+list, see [VPC 
+documentation](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html) 
+for more details).
+
+- __Subnet__: this is a range of IP addresses in your VPC. Subnet has a _route 
+  table_ and _security policies_ associated with the subnet that allow change of 
+  network behavior of resources placed into subnet according to specific needs.
+
+- __Internet Gateway__: enables resources inside the VPC to connect to the 
+  Internet.  This behavior is configured through _subnet route tables_.  Subnet 
+  that allows traffic flow to/from Internet Gateway is a _public subnet_, 
+  otherwise it is a _private subnet_.
+
+- __NAT Gateway__: allows connections from resources inside VPC to the Internet, 
+  but prevents unsolicited inbound connections to protected resources. Must be 
+  used by _private subnets_ as a method of accessing the Internet, if that's 
+  necessary.
+
+- __Network ACL__: act as a firewall for associated subnets, controlling both 
+  inbound and outbound traffic at the subnet level.
+
+- __Security Group__: act as a firewall for associated resources, controlling 
+  both inbound and outbound traffic at the instance level.
+
+Each modern AWS account has a _default VPC_, also customers can create 
+additional _nondefault or custom VPCs_. For HIPAA compliant workloads usage of 
+default VPC is not recommended. You have to __create custom VPC__ is order to 
+make your network more secure by configuring and controlling it top-to-bottom.
+
+AWS VPC supports _multiple network configuration scenarios_. If you want to 
+design cloud network architecture optimized for your system and organization 
+needs, then it makes sense to use help of professionals. In this guide we'll 
+outline one possible scenario suitable for _public-facing web applications or 
+APIs_ that use multi-tier software architecture.
+
+![AWS VPC Config Private/Public](../img/aws-vpc-config-private-public.png)
+
+Some comments about this scenario.
+
+- _Public subnet_: used for resource that require direct connection to/from the 
+  Internet
+- _Private subnet_: used for application and database resources, they must be 
+  protected and can not access the Internet directly
+- _IGW (Internet Gateway)_: entry point for the Internet traffic
+- _ELB (Elastic Load Balancer)_: receives incoming requests and forward them to 
+  app/web server(s) 
+- _NAT (NAT Gateway)_: allows resources in private subnet access the Internet
+- _AZ1, AZ2_: shows different Availability Zones, the same subnets need to be 
+  replicated across AZs to improve appications availability
+
+This architecture requires additional component that allow you perform various 
+_administrative tasks_ on your resources such as server configuration, 
+maintenance and software upgrades. Depending on your organization need choose on 
+of recommended approaches.
+
+- __AWS Hardware VPN__: create an IPsec, hardware VPN connection between your 
+  VPC and your remote network. In this case AWS VPC becomes an extension of 
+  existing organization framework.
+- __Software VPN (OpenVPN)__: create a VPN connection by using an Amazon EC2 
+  instance in your VPC that's running a software VPN appliance.  
+  [OpenVPN](https://openvpn.net/) is a commonly used package that provide VPN 
+  functionality. This approach allows to access VPC from any computer assuming 
+  it has properly configured OpenVPN client software.
+
+_Network monitoring and audit_ can be performed using [VPC Flow 
+Logs](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/flow-logs.html) 
+feature. It enables you to capture information about the IP traffic going to and 
+from network interfaces in your VPC. Flow log data is stored using Amazon 
+CloudWatch Logs.
 
 ### AWS Availability
 
