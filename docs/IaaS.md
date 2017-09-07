@@ -29,11 +29,13 @@ Reference](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)
 page. This list is changing over time as AWS adds HIPAA eligibility for more 
 services, check AWS reference page to get latest details. 
 
-Currently (at the time of writing) following services are HIPAA eligible:
+Currently (updated Sep 7, 2017) following services are HIPAA eligible:
 - Amazon API Gateway excluding the use of Amazon API Gateway caching
 - Amazon Aurora [MySQL-compatible edition only]
-- Amazon CloudFront [excluding Lambda@Edge]
+- AWS Batch
+- Amazon CloudFront [including Lambda@Edge]
 - Amazon Cognito
+- Amazon Connect
 - AWS Database Migration Service
 - AWS Direct Connect
 - AWS Directory Services excluding Simple AD and AD Connector
@@ -46,14 +48,16 @@ Currently (at the time of writing) following services are HIPAA eligible:
 - Amazon Elastic MapReduce (Amazon EMR)
 - Amazon Glacier
 - Amazon Inspector
+- Amazon Kinesis Streams
+- AWS Lambda
 - Amazon Redshift
-- Amazon Relational Database Service (Amazon RDS) [MySQL, Oracle, and PostgreSQL 
-  engines only]
+- Amazon Relational Database Service (Amazon RDS) [SQL Server, MySQL, Oracle, and PostgreSQL, MariaDB engines only]
 - AWS Shield [Standard and Advanced]
 - Amazon Simple Notification Service (SNS)
 - Amazon Simple Queue Service (SQS)
 - Amazon Simple Storage Service (Amazon S3) [including S3 Transfer Acceleration]
 - AWS Snowball
+- AWS Snowball Edge
 - Amazon Virtual Private Cloud (VPC)
 - AWS Web Application Firewall (WAF)
 - Amazon WorkDocs
@@ -414,8 +418,8 @@ Some comments about this scenario.
 
 This architecture requires additional component that allow you perform various 
 _administrative tasks_ on your resources such as server configuration, 
-maintenance and software upgrades. Depending on your organization need choose on 
-of recommended approaches.
+maintenance and software upgrades. Depending on your organization need to choose 
+one of recommended approaches.
 
 - __AWS Hardware VPN__: create an IPsec, hardware VPN connection between your 
   VPC and your remote network. In this case AWS VPC becomes an extension of 
